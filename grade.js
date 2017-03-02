@@ -6,19 +6,19 @@ Number.prototype.toFixedDown = function(digits) {
 };
 
 exports.convert = function (score) {
-    if( !score )
+    if( !score )    // check empty object
         return 'Undefined Object';
 
-    if( Array.isArray(score) == false )
+    if( Array.isArray(score) == false ) // check array object
         return 'Argument is not array';
 
-    if( score.length < 4 )
+    if( score.length < 4 )  // check object contain four values
         return 'Argument is smaller than 4';
 
-    for(var i = 0; i < score.length; i++ )
+    for(var i = 0; i < score.length; i++ )  // check value range
     {
         if( score[i] < 0 || score[i] > 100 )
-            return 'Score can be between 0 and 100';
+            return 'Overflow';
     }
 
     var grade = 0.1 * score[0] + 0.1 * score[1] + 0.4 * score[2] + 0.4 * score[3];
