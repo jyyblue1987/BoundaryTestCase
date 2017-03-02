@@ -1,11 +1,16 @@
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 var grade_func = require('./grade');
-var score = [1, 2, 3, 4];
 
 // generate test case
 // boundary 0, 100
 // individual value -1, 0, 1, 50, 99, 100, 101
 // test value according to grade
-
 // < 0 --   overflow
 // 0, 59    F
 // 60, 62   D-
@@ -94,32 +99,87 @@ function generateTestCase(start, end, grade) {
     return test_cases;
 }
 
-var test_cases = [];
+function testCases(test_cases) {
+    console.log('Case: home1 home2 exam1 exam2 expected result Passed');
+    for(var i = 0; i < test_cases.length; i++ )
+    {
+        var score = test_cases[i];
 
-//var cases = generateOverflowTestCase(0, 100, 'Overflow');
-//var cases = generateTestCase(0, 60, 'F');
-//var cases = generateTestCase(60, 63, 'D-');
-//var cases = generateTestCase(63, 67, 'D');
-//var cases = generateTestCase(67, 70, 'D+');
-//var cases = generateTestCase(70, 73, 'C-');
-//var cases = generateTestCase(73, 77, 'C');
-//var cases = generateTestCase(77, 80, 'C+');
-//var cases = generateTestCase(80, 83, 'B-');
-//var cases = generateTestCase(83, 87, 'B');
-//var cases = generateTestCase(87, 90, 'B+');
-//var cases = generateTestCase(90, 93, 'A-');
-var cases = generateTestCase(93, 100, 'A');
+        var grade = grade_func.convert(score);
+        var flag = grade == score[4] ? "Yes" : "No";
 
-test_cases = test_cases.concat(cases);
-
-console.log('Case: home1 home2 exam1 exam2 expected result Passed');
-for(var i = 0; i < test_cases.length; i++ )
-{
-    var score = test_cases[i];
-
-    var grade = grade_func.convert(score);
-    var flag = grade == score[4] ? "Yes" : "No";
-
-    console.log((i + 1) + ':   ' + score[0] + ",   " + score[1] + ",   " + score[2] + ",   " + score[3] + ":   " + score[4] +  " - " + grade + ": " + flag );
+        console.log((i + 1) + ':   ' + score[0] + ",   " + score[1] + ",   " + score[2] + ",   " + score[3] + ":   " + score[4] +  " - " + grade + ": " + flag );
+    }
 }
+function receiveTestCase() {
+    rl.question('Please input grade for test ', (answer) => {
+        var cases = [];
+        switch (answer) {
+            case 'O':   // Overflow
+                cases = generateOverflowTestCase(0, 100, 'Overflow');
+                break;
+            case 'F':
+                cases = generateTestCase(0, 60, 'F');
+                break;
+            case 'D-':
+                cases = generateTestCase(60, 63, 'D-');
+                break;
+            case 'D':
+                cases = generateTestCase(63, 67, 'D');
+                break;
+            case 'D+':
+                cases = generateTestCase(67, 70, 'D+');
+                break;
+            case 'C-':
+                cases = generateTestCase(70, 73, 'C-');
+                break;
+            case 'C':
+                cases = generateTestCase(73, 77, 'C');
+                break;
+            case 'C+':
+                cases = generateTestCase(77, 80, 'C+');
+                break;
+            case 'B-':
+                cases = generateTestCase(80, 83, 'B-');
+                break;
+            case 'B':
+                cases = generateTestCase(83, 87, 'B');
+                break;
+            case 'B+':
+                cases = generateTestCase(87, 90, 'B+');
+                break;
+            case 'A-':
+                cases = generateTestCase(90, 93, 'A-');
+                break;
+            case 'A':
+                cases = generateTestCase(93, 100, 'A');
+                break;
+            case 'q':
+                rl.close();
+                return;
+                break;
+            default:
+                console.log('Please inptu correct grade.');
+                receiveTestCase();
+                return;
+        }
+
+        var test_cases = [];
+
+        test_cases = test_cases.concat(cases);
+
+        testCases(test_cases);
+
+        receiveTestCase();
+    });
+}
+
+receiveTestCase();
+
+
+
+
+
+
+
 
