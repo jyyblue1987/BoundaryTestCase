@@ -1,3 +1,6 @@
+// 1.	Write a Node.js program to implement the Grade Conversion Problem.
+//      You need to specify a set of numbers as an object with four values for each element in the array.
+
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -26,6 +29,7 @@ var grade_func = require('./grade');
 // 93, 100  A
 // > 100    overflow
 
+// generate overflow test case for value range
 function generateOverflowTestCase(start, end, label)
 {
     var test_cases = [];
@@ -49,6 +53,7 @@ function generateOverflowTestCase(start, end, label)
     return test_cases;
 }
 
+// generate test case for a grade
 function generateTestCase(start, end, grade) {
     var test_cases = [];
 
@@ -99,6 +104,7 @@ function generateTestCase(start, end, grade) {
     return test_cases;
 }
 
+// check test case with expected result
 function testCases(test_cases) {
     console.log('Case: home1 home2 exam1 exam2 expected result Passed');
     for(var i = 0; i < test_cases.length; i++ )
@@ -111,6 +117,8 @@ function testCases(test_cases) {
         console.log((i + 1) + ':   ' + score[0] + ",   " + score[1] + ",   " + score[2] + ",   " + score[3] + ":   " + score[4] +  " - " + grade + ": " + flag );
     }
 }
+
+// receive grade input for test
 function receiveTestCase() {
     rl.question('Please input grade for test ', (answer) => {
         var cases = [];
