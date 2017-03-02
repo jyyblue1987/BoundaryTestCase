@@ -120,7 +120,7 @@ function testCases(test_cases) {
 
 // receive grade input for test
 function receiveTestCase() {
-    rl.question('Please input grade for test ', (answer) => {
+    rl.question('Please input for test ', (answer) => {
         var cases = [];
         switch (answer) {
             case 'O':   // Overflow
@@ -167,7 +167,12 @@ function receiveTestCase() {
                 return;
                 break;
             default:
-                console.log('Please inptu correct grade.');
+                var arr = answer.split(",");
+                score = arr.map(function (val) { return +val; });
+
+                var grade = grade_func.convert(score);
+                console.log("Output: " + grade);
+
                 receiveTestCase();
                 return;
         }
@@ -183,7 +188,6 @@ function receiveTestCase() {
 }
 
 receiveTestCase();
-
 
 
 
