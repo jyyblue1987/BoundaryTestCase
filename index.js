@@ -77,18 +77,42 @@ function generateTestCase(start, end, grade) {
         test_cases.push(test);
     }
 
+    if( end == 100 )
+    {
+        boundary = end;
+        for(var i = 0; i < 4; i++ )
+        {
+            var test = [boundary, boundary, boundary, boundary, grade];
+            test[i] = boundary - 0.01;
+            test_cases.push(test);
+        }
+
+        var test = [boundary, boundary, boundary, boundary, grade];
+        test_cases.push(test);
+    }
+
     return test_cases;
 }
 
 var test_cases = [];
 
-var cases = generateOverflowTestCase(0, 100, 'Overflow');
+//var cases = generateOverflowTestCase(0, 100, 'Overflow');
 //var cases = generateTestCase(0, 60, 'F');
 //var cases = generateTestCase(60, 63, 'D-');
+//var cases = generateTestCase(63, 67, 'D');
+//var cases = generateTestCase(67, 70, 'D+');
+//var cases = generateTestCase(70, 73, 'C-');
+//var cases = generateTestCase(73, 77, 'C');
+//var cases = generateTestCase(77, 80, 'C+');
+//var cases = generateTestCase(80, 83, 'B-');
+//var cases = generateTestCase(83, 87, 'B');
+//var cases = generateTestCase(87, 90, 'B+');
+//var cases = generateTestCase(90, 93, 'A-');
+var cases = generateTestCase(93, 100, 'A');
 
 test_cases = test_cases.concat(cases);
 
-console.log('Case: home1 home2 exam1 exam2 expected result correct');
+console.log('Case: home1 home2 exam1 exam2 expected result Passed');
 for(var i = 0; i < test_cases.length; i++ )
 {
     var score = test_cases[i];
@@ -96,6 +120,6 @@ for(var i = 0; i < test_cases.length; i++ )
     var grade = grade_func.convert(score);
     var flag = grade == score[4] ? "Yes" : "No";
 
-    console.log((i + 1) + ': ' + score[0] + ", " + score[1] + ", " + score[2] + ", " + score[3] + ": " + score[4] +  " - " + grade + ": " + flag );
+    console.log((i + 1) + ':   ' + score[0] + ",   " + score[1] + ",   " + score[2] + ",   " + score[3] + ":   " + score[4] +  " - " + grade + ": " + flag );
 }
 
