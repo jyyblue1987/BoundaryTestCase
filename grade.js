@@ -15,6 +15,12 @@ exports.convert = function (score) {
     if( score.length < 4 )
         return 'Argument is smaller than 4';
 
+    for(var i = 0; i < score.length; i++ )
+    {
+        if( score[i] < 0 || score[i] > 100 )
+            return 'Score can be between 0 and 100';
+    }
+
     var grade = 0.1 * score[0] + 0.1 * score[1] + 0.4 * score[2] + 0.4 * score[3];
 
     grade = grade.toFixedDown(1);
