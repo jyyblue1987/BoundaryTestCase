@@ -21,19 +21,72 @@ var score = [1, 2, 3, 4];
 // 93, 100  A
 // > 100    overflow
 
-var test_cases = [];
-
-// overflow test case
-for(var i = 0; i < 4; i++ )
+function generateOverflowTestCase(start, end, label)
 {
-    var test = [0, 0, 0, 0, 'Overflow'];
-    test[i] = -0.05;
-    test_cases.push(test);
+    var test_cases = [];
+
+    // overflow test case for min
+    for(var i = 0; i < 4; i++ )
+    {
+        var test = [start, start, start, start, label];
+        test[i] = start - 0.05;
+        test_cases.push(test);
+    }
+
+    // overflow test case for max
+    for(var i = 0; i < 4; i++ )
+    {
+        var test = [end, end, end, end, label];
+        test[i] = end + 0.05;
+        test_cases.push(test);
+    }
+
+    return test_cases;
 }
 
-var test = [0, 0, 0, 0, 'F'];
-test_cases.push(test);
+function generateTestCase(start, end, grade) {
+    var test_cases = [];
 
+    // test cases (boundary)
+    var test = [start, start, start, start, grade];
+    test_cases.push(test);
+
+    // test cases (boundary)+
+    for(var i = 0; i < 4; i++ )
+    {
+        var test = [start, start, start, start, grade];
+        test[i] = start + 0.05;
+        test_cases.push(test);
+    }
+
+    // test cases Normal
+    var normal = (end + start) / 2;
+    for(var i = 0; i < 1; i++ )
+    {
+        var test = [normal, normal, normal, normal, grade];
+        test[i] = normal;
+        test_cases.push(test);
+    }
+
+    // test cases (next boundary)-
+    var boundary = end - 0.5;
+    for(var i = 0; i < 4; i++ )
+    {
+        var test = [boundary, boundary, boundary, boundary, grade];
+        test[i] = boundary - 0.01;
+        test_cases.push(test);
+    }
+
+    return test_cases;
+}
+
+var test_cases = [];
+
+var cases = generateOverflowTestCase(0, 100, 'Overflow');
+//var cases = generateTestCase(0, 60, 'F');
+//var cases = generateTestCase(60, 63, 'D-');
+
+test_cases = test_cases.concat(cases);
 
 console.log('Case: home1 home2 exam1 exam2 expected result correct');
 for(var i = 0; i < test_cases.length; i++ )
