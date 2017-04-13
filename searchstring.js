@@ -1,4 +1,6 @@
-exports.searchString = function (length, source, query) {
+module.exports.version = "1.0.0";
+
+module.exports.searchString = function (length, source, query) {
     if(length < 1 || length > 20 )
         return "Length must be between 1 and 20";
 
@@ -20,7 +22,6 @@ exports.searchString = function (length, source, query) {
     return -1;
 };
 
-
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -29,7 +30,7 @@ const rl = readline.createInterface({
 });
 
 // receive grade input for test
-exports.receiveTestCase = function() {
+module.exports.receiveTestCase = function() {
     rl.question('Please input parameters ', (answer) => {
         var arr = answer.split(",");
         if( arr.length != 3 ) {
@@ -47,5 +48,3 @@ exports.receiveTestCase = function() {
         this.receiveTestCase();
     });
 };
-
-this.receiveTestCase();
