@@ -14,6 +14,9 @@ module.exports.searchString = function (input) {
     var source = arr[1];
     var query = arr[2];
 
+    if(isNaN(length) == true)
+        return "Length should be number";
+
     if(length < 1 || length > 20 )
         return "Length must be between 1 and 20";
 
