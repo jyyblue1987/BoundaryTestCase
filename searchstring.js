@@ -1,4 +1,4 @@
-module.exports.version = "1.0.0";
+module.exports.version = "1.0.1";
 
 module.exports.searchString = function (input) {
     var arr = input.split(",");
@@ -20,13 +20,13 @@ module.exports.searchString = function (input) {
     if( !source )
         return "Please input target string";
 
-    if( source.length != length )
-        return "String length does not matched";
+    if( source.length < length )
+        return "length should be less than input string's length";
 
     if( !query || query.length != 1 )
         return "Query Character must be length 1";
 
-    for(var i = 0; i < source.length; i++ )
+    for(var i = 0; i < length; i++ )
     {
         if(source[i] == query)
             return i;
