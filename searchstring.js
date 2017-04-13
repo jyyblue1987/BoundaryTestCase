@@ -19,3 +19,33 @@ exports.searchString = function (length, source, query) {
 
     return -1;
 };
+
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+// receive grade input for test
+exports.receiveTestCase = function() {
+    rl.question('Please input parameters ', (answer) => {
+        var arr = answer.split(",");
+        if( arr.length != 3 ) {
+            console.log("Please input 3 parameters:\n" +
+                "First: a positive integer in the range of 1 to 20\n" +
+                "Second: a target string of characters of that length\n" +
+                "Third: a single character");
+        }
+        else
+        {
+            var ret = this.searchString(arr[0], arr[1], arr[2]);
+            console.log(ret);
+        }
+
+        this.receiveTestCase();
+    });
+};
+
+this.receiveTestCase();
